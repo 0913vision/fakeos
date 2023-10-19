@@ -2,9 +2,7 @@
 #include "kernel.h"
 #include "global.h"
 #include "privileged.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 struct intr_frame{
     int eax;
@@ -15,11 +13,9 @@ struct intr_frame{
 void syscall_handler(struct intr_frame *f) {
     // TODO 1 : syscall_handler 구현하기
     int syscall_no = *(int*)(f->esp);
-    printf("%d\n", syscall_no);
 
     if (syscall_no == SYS_AA) {
-        void *arg = (char *)(f->esp + 8);
-        printf("%x\n", arg);
+        void *arg = *(char **)(f->esp + 8);
         kernel_function(arg);
     }
 }

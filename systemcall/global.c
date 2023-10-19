@@ -2,13 +2,14 @@
 #include "privileged.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 Mode mode = USER_MODE; // Set initial mode to USER_MODE
 CPU cpu = { .esp = memory + MAX_MEMORY - 1 }; // Initialize CPU state
 
 void pushl(void* arg) {
   addl_esp(-8);
-  memcpy(cpu.esp, &arg, 8);
+  memcpy(cpu.esp, arg, 8);
 }
 
 void movl_eax(int arg) {
