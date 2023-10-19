@@ -2,6 +2,9 @@
 #include "kernel.h"
 #include "global.h"
 #include "privileged.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct intr_frame{
     unsigned int eax;

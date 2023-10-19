@@ -6,10 +6,6 @@
 // System call number table
 #define SYS_AA 0
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 // Enum for CPU modes
 typedef enum { USER_MODE, KERNEL_MODE } Mode;
 

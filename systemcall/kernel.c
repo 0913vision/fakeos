@@ -1,6 +1,9 @@
 #include "global.h"
 #include "kernel.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 // Function to simulate a kernel panic
 void kernel_panic() {
     printf("*** kernel panic ***\n");
