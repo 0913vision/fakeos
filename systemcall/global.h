@@ -12,13 +12,17 @@ typedef enum { USER_MODE, KERNEL_MODE } Mode;
 // Structure for CPU state
 typedef struct {
     unsigned int eax;
-    unsigned int esp;
+    void* esp;
 } CPU;
 
 char memory[MAX_MEMORY]; 
 
 Mode get_cpu_mode(void);
 
-extern CPU cpu;
+void pushl(void* arg);
+void movl_eax(int arg);
+void addl_esp(int arg);
+int get_eax();
+void* get_esp();
 
 #endif

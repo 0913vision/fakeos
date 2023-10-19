@@ -7,20 +7,19 @@
 #include <string.h>
 
 struct intr_frame{
-    unsigned int eax;
-    unsigned int esp;
+    int eax;
+    void* esp;
 };
 
 // Function to handle system calls
 void syscall_handler(struct intr_frame *f) {
     // TODO 1 : syscall_handler 구현하기
-    int syscall_no = *((int *)(memory + f->esp));
-    f->esp += sizeof(int);
+    int syscall_no = *(int*)(f->esp);
+    printf("%d\n", syscall_no);
 
     if (syscall_no == SYS_AA) {
-        char *arg = (char *)(memory + f->esp);
-        f->esp += strlen(arg)+1;
-
+        void *arg = (char *)(f->esp + 8);
+        printf("%x\n", arg);
         kernel_function(arg);
     }
 }
@@ -34,13 +33,12 @@ void interrupt_handler() {
     switch_to_kernel_mode();
     
     struct intr_frame *f = (void*)malloc(sizeof(struct intr_frame));
-    f->eax = cpu.eax;
-    f->esp = cpu.esp;
+    f->eax = get_eax();
+    f->esp = get_esp();
 
     syscall_handler(f);
 
-    cpu.eax = f->eax;
-    cpu.esp = f->esp;
+    movl_eax(f->eax);
     free(f);
 
     switch_to_user_mode();

@@ -1,19 +1,17 @@
 #include "syscall.h"
 #include "intr.h"
 #include "global.h"
-#include <string.h>
+#include <stdio.h>
 
-int syscall1(int syscall_no, char *arg0) {
-    int arg_len = strlen(arg0) + 1;
-    cpu.esp -= arg_len;
-    strcpy(memory + cpu.esp, arg0);
+int syscall1(int syscall_no, void *arg0) {
+    pushl(arg0);
+    pushl(&syscall_no);
 
-    cpu.esp -= sizeof(int);
-    *((int *)(memory + cpu.esp)) = syscall_no;
+    printf("%s\n", (char*)(get_esp()+8));
 
     interrupt_handler();
-
-    return cpu.eax;
+    addl_esp(16);
+    return get_eax();
 }
 
 // TODO 2: 새로운 syscallN 만들기
