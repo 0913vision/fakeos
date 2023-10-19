@@ -17,7 +17,6 @@ typedef enum { USER_MODE, KERNEL_MODE } Mode;
 typedef struct {
     unsigned int eax;
     unsigned int esp;
-    Mode mode;
 } CPU;
 
 char memory[MAX_MEMORY]; 

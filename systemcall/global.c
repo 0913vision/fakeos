@@ -2,7 +2,7 @@
 #include "privileged.h"
 
 Mode mode = USER_MODE; // Set initial mode to USER_MODE
-CPU cpu = { .esp = MAX_MEMORY-1, .mode = USER_MODE }; // Initialize CPU state
+CPU cpu = { .esp = MAX_MEMORY-1 }; // Initialize CPU state
 
 // Function to retrieve the current CPU mode
 Mode get_cpu_mode(void) {
